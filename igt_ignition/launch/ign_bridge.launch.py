@@ -74,7 +74,7 @@ def generate_launch_description():
 				('/world/default/model/igt_one/joint_state', '/joint_states')
 			])
 
-	# lidar bridge 
+   """ lidar bridge 
 	lidar_bridge = Node(package='ros_ign_bridge', executable='parameter_bridge',
 			namespace = namespace,
 			name = 'lidar_bridge',
@@ -89,7 +89,7 @@ def generate_launch_description():
 			remappings = [
 				(ign_model_prefix + '/laserscan/points', '/scan/points'),
 				(ign_model_prefix + '/laserscan', '/scan')
-			])
+			])"""
 
 
 	# color camera bridge 
@@ -139,14 +139,14 @@ def generate_launch_description():
 				(ign_model_prefix + '/tf', '/tf')
 			])
 
-	lidar_stf = Node(package='tf2_ros', executable='static_transform_publisher',
+	"""lidar_stf = Node(package='tf2_ros', executable='static_transform_publisher',
             namespace = namespace,
             name = 'lidar_stf',
                 arguments = [
                     '0', '0', '0', '0', '0', '0', '1',
                     'lidar',
                     'igt_one/base_link/front_lidar'
-            ])
+            ])"""
 
 	return LaunchDescription([
         DeclareLaunchArgument('use_sim_time', default_value=['false'],
@@ -155,9 +155,7 @@ def generate_launch_description():
 		cmd_vel_bridge,
 		joint_state_bridge,
 		odometry_bridge,
-		lidar_bridge,
 		color_camera_bridge,
 		depth_camera_bridge,
-		odom_base_tf_bridge,
-        lidar_stf
+		odom_base_tf_bridge
 	])
