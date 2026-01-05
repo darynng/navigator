@@ -13,7 +13,7 @@ def generate_launch_description():
 
 	pkg_ros_ign_gazebo = get_package_share_directory('ros_ign_gazebo')
 	pkg_igt_ignition = get_package_share_directory('igt_ignition')
-	urdf_path = pkg_igt_ignition + '/models/igt_one/igt_one.urdf'
+	urdf_path = pkg_igt_ignition + '/models/RobotRMP/model.urdf'
 	use_sim_time = LaunchConfiguration('use_sim_time')
 
 	# Gazebo launch
@@ -35,12 +35,12 @@ def generate_launch_description():
 
 	# spawn sdf
 	spawn_sdf = Node(package='ros_ign_gazebo', executable='create',
-			arguments=['-name', 'igt_one',
+			arguments=['-name', 'RMP',
 				'-x', '2.0',
                 '-y', '0.0',
 				'-z', '0.0',
 				'-Y', '-1.57',
-				'-file', os.path.join(pkg_igt_ignition, 'models', 'igt_one', 'model.sdf')],
+				'-file', os.path.join(pkg_igt_ignition, 'models', 'RobotRMP', 'model.sdf')],
 			output='screen')
 
 	# robot state publisher node
