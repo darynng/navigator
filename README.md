@@ -1,8 +1,10 @@
 # Igt One
 
 ## Installation
-  * Install [Ignition-Edifice](https://ignitionrobotics.org/docs/edifice/install_ubuntu) or greater.
-  * Build ros_ign packages for foxy from [source](https://github.com/ignitionrobotics/ros_ign) as the binaries on apt are only supported for Ignition-Citadel as of now so some features might not work with the package from apt.
+  * Ignition Gazebo
+  * ros2-humble
+  * [slam_toolbox](https://github.com/SteveMacenski/slam_toolbox)
+  * [navstack2](https://navigation.ros.org/build_instructions/index.html)
   
 * Create a workspace
 
@@ -33,46 +35,35 @@ ros2 launch igt_ignition igt_ignition.launch.py
 ### Launch with <code>ros_ign_bridge</code> for teleop
 
 ```bash
-ros2 launch igt_ignition igt_ignition.launch.py with_bridge:=true
+ros2 launch igt_ignition igt_ignition.launch.py
 
 ```
 
-Make sure you UNPAUSE physics by clicking "play" button in bottom left corner of ignition
+Make sure you start simulation physics by clicking "play" button in bottom left corner of ignition
 
 and then open another terminal and run
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-### Publish velocities using <code>ign topic</code>
+### Move robot by publishing velocities
 
 ```bash
-ign topic -t "/model/igt_one/cmd_vel" -m ignition.msgs.Twist -p "linear: {x: 2.0}, angular: {z: 0.0}"
+ign topic -t "/model/RMP/cmd_vel" -m ignition.msgs.Twist -p "linear: {x: 2.0}, angular: {z: 0.0}"
 ```
 
-### Subscribe to topics using <code>ign topic</code>
+### Subscribe to topics
 
 ```bash
-ign topic -t "/igt_one/laserscan" -e
+ign topic -t "/RMP/scan" -e
 ```
 ```bash
-ign topic -t "/model/igt_one/odometry" -e
+ign topic -t "/model/RMP/odom" -e
 ```
 # Navigation
 
 ### Mapping with Slam Toolbox
- * Install [slam_toolbox](https://github.com/SteveMacenski/slam_toolbox) from apt for ros2 foxy using:
-   ```bash
-   sudo apt install ros-foxy-slam-toolbox
-   ```
- * Launch the simulation in ignition gazebo with ros_ign_bridge using:
-   ```bash
-   ros2 launch igt_ignition igt_ignition.launch.py with_bridge:=true
-   ```
-   
- * Make sure you UNPAUSE physics by clicking "play" button in bottom left corner of ignition
-
- * Open another terminal and launch slam_toolbox for mapping and rviz2 using `online_sync_launch.py` from `igt_nav` package:
+ * Open another terminal and launch slam_toolbox for mapping and rviz2 using `online_sync_launch.py`:
    ```bash
    ros2 launch igt_nav online_sync_launch.py
    ```
@@ -87,18 +78,11 @@ ign topic -t "/model/igt_one/odometry" -e
    <img src="./images/mapping.gif" />
 
 ### Navigation2
- * Install [navstack2](https://navigation.ros.org/build_instructions/index.html) for ros foxy.
- * Launch the simulation in ignition gazebo using:
-   ```bash
-   ros2 launch igt_ignition igt_ignition.launch.py with_bridge:=true
-   ```
- * Make sure you UNPAUSE physics by clicking "play" button in bottom left corner of ignition
-
- * Launch navigation2 using `navigation2.launch.py` launch file:
+ * Open another terminal and launch navigation2 using `navigation2.launch.py` launch file:
    ```bash
    ros2 launch igt_nav navigation2.launch.py
    ```
-   This launches the `bringup.launch.py` launch file from `nav2_bringup` package and `map/lab_map.yaml` and `config/nav2.yaml` from igt_nav package as map and params_file. It also runs the rviz2 node with nav2 rviz config from nav2_bringup package.
+   This launches the `bringup.launch.py` launch file from `nav2_bringup` package and `map/lab_map.yaml` and `config/nav2.yaml` from igt_nav package as map and params_file. It also start rviz2 for visualization.
  * In rviz2, use `2D Pose Estimate` to provide initial pose of the bot to amcl so that it can start publishing the robot's pose & `map->odom tf`.
- * After providing the initial pose of the bot you will see the rviz2 window updating with estimated robot pose from amcl as well as updated global and local costmap. Use the `2D Goal Pose` in rviz2 to provide the bot with a goal pose to start navigation. (shown below in gif) <br> <br>
+ * Rviz2 window will start updating with estimated robot pose from amcl as well as updated global and local costmap. Use the `2D Goal Pose` in rviz2 to provide the bot with a goal pose to start navigation. (shown below in gif) <br> <br>
    <img src="./images/navigation2.gif"/>
