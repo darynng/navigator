@@ -18,15 +18,6 @@
     <color rgba="0.05 0.05 0.05 1"/>
   </material>
 
-  <!-- ================= WORLD ================= -->
-  <link name="world"/>
-
-  <joint name="base_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-    <parent link="world"/>
-    <child link="base_link"/>
-  </joint>
-
   <!-- ================= BASE LINK ================= -->
   <link name="base_link">
     <visual>
@@ -233,7 +224,6 @@
     <child link="camera_link"/>
   </joint>
    
-    <!-- Simulate depth camera in gazebo -->
     <!-- Due to a quirk of how cameras work, an extra joint/link is required to create an
          "optical frame" for the sensor. -->
 
@@ -244,6 +234,5 @@
     </joint>
 
     <link name="camera_link_optical"></link>
-
-
 </robot>
+
