@@ -1,4 +1,4 @@
-# Igt One
+# Segway RMP 401 PPLUS chassis
 
 ## Installation
   * Ignition Gazebo
