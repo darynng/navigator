@@ -1,4 +1,4 @@
-# Segway RMP 401 PPLUS chassis
+# Segway RMP 401 PLUS chassis
 
 ## Installation
   * Ignition Gazebo
