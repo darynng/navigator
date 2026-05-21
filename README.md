@@ -21,7 +21,7 @@ colcon build --symlink-install
 
 source install/setup.bash
 ```
-## Launch
+## Launch Gazebo Ignition
 
 >Ign-Gazebo
 
@@ -32,34 +32,6 @@ ros2 launch igt_ignition igt_ignition.launch.py
 <img src="./images/igt_gazebo.png" width=800/>
 <img src="./images/ign_gazebo_image_display.png" width=800/>
 
-### Launch with <code>ros_ign_bridge</code> for teleop
-
-```bash
-ros2 launch igt_ignition igt_ignition.launch.py
-
-```
-
-Make sure you start simulation physics by clicking "play" button in bottom left corner of ignition
-
-and then open another terminal and run
-```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-```
-
-### Move robot by publishing velocities
-
-```bash
-ign topic -t "/model/RMP/cmd_vel" -m ignition.msgs.Twist -p "linear: {x: 2.0}, angular: {z: 0.0}"
-```
-
-### Subscribe to topics
-
-```bash
-ign topic -t "/RMP/scan" -e
-```
-```bash
-ign topic -t "/model/RMP/odom" -e
-```
 # Navigation
 
 ### Mapping with Slam Toolbox
